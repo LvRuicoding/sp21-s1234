@@ -114,6 +114,37 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        // 转化为向上移动
+        if(side==Side.EAST){board.startViewingFrom(Side.EAST);}
+        if(side==Side.WEST){board.startViewingFrom(Side.WEST);}
+        if(side==Side.SOUTH){board.startViewingFrom(Side.SOUTH);}
+        // 解决向上移动
+        changed=false;
+        for(int c=0;c<board.size();c++){
+            int new_created=0;
+            for(int r=board.size()-1;r>=0;r--){
+                Tile t = board.tile(c,r);
+                int go_up =0;
+                if(t!=null){
+                    for(int i=r+1;i<board.size();i++){
+                        if(board.tile(c,i)==null){go_up+=1;}
+                        else{
+                            if(board.tile(c,i)!=null && board.tile(c,i).value()!=t.value()){break;}
+                            if(board.tile(c,i).value()==t.value() && i==new_created){break;};
+                            if(board.tile(c,i).value()==t.value()){board.move(c,i,t);
+                                new_created=i;
+                                go_up=0;
+                                score+=2*t.value();
+                                changed=true;
+                                break;}
+                        }
+                    }
+                    board.move(c,r+go_up,t);
+                    if(go_up!=0){changed=true;}
+                }
+            }
+        }
+        board.startViewingFrom(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -139,8 +170,8 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
-        for(int i=0;i<4;i++){
-            for(int j=0;j<4;j++){
+        for(int i=0;i<b.size();i++){
+            for(int j=0;j<b.size();j++){
                 if(b.tile(i,j)==null){return true;}
             }
 
@@ -177,14 +208,14 @@ public class Model extends Observable {
         // Empty check
         if(Model.emptySpaceExists(b)){return true;}
         //Row check
-        for(int i=0;i<4;i++){
-            for(int j=0;j<3;j++){
+        for(int i=0;i<b.size();i++){
+            for(int j=0;j<b.size()-1;j++){
                 if((b.tile(i,j).value()==b.tile(i,j+1).value())){return true;}
             }
         }
         //Column ckeck
-        for(int i=0;i<4;i++){
-            for(int j=0;j<3;j++){
+        for(int i=0;i<b.size();i++){
+            for(int j=0;j<b.size()-1;j++){
                 if((b.tile(j,i).value()==b.tile(j+1,i).value())){return true;}
             }
         }
