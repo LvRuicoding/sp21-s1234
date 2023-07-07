@@ -14,7 +14,7 @@ public class IntListExercises {
             head.first += c;
             head = head.rest;
         }
-        head.first+=c;
+        if(lst!=null){head.first+=c;}
     }
 
     /**
@@ -70,6 +70,7 @@ public class IntListExercises {
         // Base Case: we have reached the end of the list
         IntList head = lst;
         boolean haschanged = false;
+        if(lst==null){return false;}
         for(int i=0;i<lst.size();i++){
             if (lst == null) {
                 return false;
