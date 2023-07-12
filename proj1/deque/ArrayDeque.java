@@ -4,12 +4,12 @@ import org.apache.commons.collections.iterators.ArrayIterator;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> {
-    private int size;
-    private T[] items;
-    private int nextfirst;
-    private int nextlast;
-    private class ArrayDequeIterator implements Iterator<T> {
+public class ArrayDeque<T> implements Deque<T>{
+    public int size;
+    public T[] items;
+    public int nextfirst;
+    public int nextlast;
+    public class ArrayDequeIterator implements Iterator<T> {
         int tem = nextfirst;
         public boolean hasNext(){
             if (items[tem+1] != null){return true;}
@@ -26,10 +26,6 @@ public class ArrayDeque<T> {
         size = 0;
         nextfirst = 3;
         nextlast = 4;
-    }
-    public boolean isEmpty(){
-        if(size==0){return true;}
-        return false;
     }
     public int size(){
         return size;
