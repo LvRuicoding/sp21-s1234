@@ -57,6 +57,7 @@ public class ArrayDeque<T> {
         nextlast+=1;
     }
     public T removeFirst(){
+        if (size==0){return null;}
         T tem = items[nextfirst+1];
         if(items.length>16 && size*4<items.length){
             resize(items.length/2);
@@ -67,6 +68,7 @@ public class ArrayDeque<T> {
         return tem;
     }
     public T removeLast(){
+        if (size==0){return null;}
         T tem = items[nextlast-1];
         if(items.length>16 && size*4<items.length){
             resize(items.length/2);
