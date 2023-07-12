@@ -11,7 +11,7 @@ public class ArrayDeque<T> {
     private int nextlast;
     private class ArrayDequeIterator implements Iterator<T> {
         int tem = nextfirst;
-        public boolean hasnext(){
+        public boolean hasNext(){
             if (items[tem+1] != null){return true;}
             return false;
         }
