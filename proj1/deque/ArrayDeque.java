@@ -5,11 +5,11 @@ import org.apache.commons.collections.iterators.ArrayIterator;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>{
-    public int size;
-    public T[] items;
-    public int nextfirst;
-    public int nextlast;
-    public class ArrayDequeIterator implements Iterator<T> {
+    private int size;
+    private T[] items;
+    private int nextfirst;
+    private int nextlast;
+    private class ArrayDequeIterator implements Iterator<T> {
         int tem = nextfirst;
         public boolean hasNext(){
             if (items[tem+1] != null){return true;}
@@ -30,7 +30,7 @@ public class ArrayDeque<T> implements Deque<T>{
     public int size(){
         return size;
     }
-    public void resize(int length){
+    private void resize(int length){
         T[] tem = (T[]) new Object[length];
         int start = (length - size)/2;
         for(int i =0;i<size;i++){
@@ -85,7 +85,7 @@ public class ArrayDeque<T> implements Deque<T>{
         if(index>size){return null;}
         return items[nextfirst+index+1];
     }
-    public Iterator<T> iterator(){
+    public Iterator<T> iterable(){
         return new ArrayIterator();
     }
     public boolean equals(Object o) {
@@ -109,4 +109,5 @@ public class ArrayDeque<T> implements Deque<T>{
         }
         return true;
     }
+
 }

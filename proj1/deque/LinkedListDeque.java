@@ -102,7 +102,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         if (index == 0){return n.item;}
         return get_recursive(index - 1,n.next);
     }
-    public Iterator<T> iterator(){
+    public Iterator<T> iterable(){
         return new LinkedListDequeIterator();
     }
 
