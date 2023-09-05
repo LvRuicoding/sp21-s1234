@@ -1,37 +1,47 @@
 package deque;
-
 import java.util.Comparator;
 
-public class MaxArrayDeque<T> extends ArrayDeque {
-    private Comparator cmp;
+/** Max Array Deque.
+ *  @author Huang Jinhong
+ */
 
+// define: additional method and constructor
+// public MaxArrayDeque(Comparator<T> c)
+// public T max(Comparator<T> c)
+// public T max()
 
-    public MaxArrayDeque(Comparator<T> c){
-        super();
-        cmp = c;
+public class MaxArrayDeque<T> extends ArrayDeque<T> {
+    // store the pass argument of "c" to "comparator"
+    // when using max(), we can use "comparator"
+    private Comparator<T> comparator;
+
+    /** creates a MaxArrayDeque with the given Comparator. */
+    // store the pass argument of "c" to "comparator"
+    // when using max(), we can use "comparator"
+    public MaxArrayDeque(Comparator<T> c) {
+        comparator = c;
     }
-    public T max(){
-        T tem = (T) new Object();
-        if(isEmpty()){return null;}
-        tem = (T) this.get(0);
-        for(int i = 0;i<this.size();i++){
-            if (cmp.compare(tem,this.get(i))>0){
-                tem = (T) this.get(i);
+
+    /** returns the maximum element in the deque as governed by the parameter Comparator c.
+     * If the MaxArrayDeque is empty, simply return null.*/
+    // note: we use method of comparator to compare
+    public T max(Comparator<T> c) {
+        if(isEmpty()){
+            return null;
+        }
+        int maxIndex = 0;
+        for(int i = 1; i < size(); i++){
+            if(c.compare(get(maxIndex), get(i)) < 0){
+                maxIndex = i;
             }
         }
-        return tem;
-    }
-    public T max(Comparator<T> c){
-        T tem = (T) new Object();
-        if(isEmpty()){return null;}
-        tem = (T) this.get(0);
-        for(int i = 0;i<this.size();i++){
-            if (c.compare(tem,(T) this.get(i))>0){
-                tem = (T) this.get(i);
-            }
-        }
-        return tem;
+        return get(maxIndex);
     }
 
+    /** returns the maximum element in the deque as governed by the previously given Comparator.
+     * If the MaxArrayDeque is empty, simply return null.*/
+    public T max() {
+        return max(comparator);
+    }
 }
 
